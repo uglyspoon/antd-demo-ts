@@ -52,6 +52,7 @@ const Profile: React.FC<profileProps> = ({loading, profile}) => {
     //   }
     // })
   }, [qualType])
+  console.log(123)
 
   return (
     <>

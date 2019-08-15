@@ -18,11 +18,12 @@ export interface routeItemType {
   component?: string;
   icon?: string;
   routes?: Array<routeItemType>;
+  hideInMenu?: boolean;
 }
 
 const rednerMenuItems = (routes: Array<routeItemType>) => {
   return routes.map(item => {
-    if (item.routes && item.routes.length) {
+    if (item.routes && item.routes.some(i=>!i.hideInMenu)) {
       return <SubMenu
           key={item.path}
           title={
@@ -34,8 +35,8 @@ const rednerMenuItems = (routes: Array<routeItemType>) => {
         >
         {rednerMenuItems(item.routes)}
       </SubMenu>
-    } else if (item.redirect) {
-      // return <Redirect to={item.redirect} />
+    } else if (item.redirect || item.hideInMenu) {
+      return null
     } else {
       return <Menu.Item key={item.path}>
         <Icon type={item.icon || 'smile'} />
@@ -113,9 +114,9 @@ const BaiscLayout: React.FC = ({ children }) => {
           </Breadcrumb.Item>
           {renderBreadcrumb(routes)}
         </Breadcrumb>
-      <Content style={{ padding: 15 }}>
-        {children}
-      </Content>
+        <Content style={{ padding: 15 }}>
+          {children}
+        </Content>
       <Footer style={{ textAlign: 'center' }}>
           DaBai 2019 Created by Spoon
       </Footer>

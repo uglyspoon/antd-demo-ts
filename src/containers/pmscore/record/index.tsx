@@ -69,7 +69,7 @@ const Record: React.FC<profileProps> = ({ loading, profile }) => {
       <Modal
         title="上传基础数据"
         width="60%"
-        visible={true}
+        visible={false}
         centered
         footer={
           <div style={{ alignItems: 'center', justifyContent: 'center', display:'flex' }}>

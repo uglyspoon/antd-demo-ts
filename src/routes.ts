@@ -28,6 +28,26 @@ const routes = [
     ],
   },
   {
+    path: '/plan',
+    name: '体测计划',
+    icon: 'info-circle',
+    component: '/plan',
+  },
+  {
+    path: '/plan/add',
+    name: '添加体测计划',
+    icon: 'info-circle',
+    component: '/plan/add',
+    hideInMenu:true,
+  },
+  {
+    path: '/plan/:sn',
+    name: '体测计划详情',
+    icon: 'info-circle',
+    component: '/plan/detail',
+    hideInMenu:true,
+  },
+  {
     path: '/studentinfo',
     name: '学生信息',
     icon: 'info-circle',

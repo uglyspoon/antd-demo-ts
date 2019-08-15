@@ -35,13 +35,12 @@ function Dropzone({ saveFile, content, accept }: DropzonePropsType) {
     saveFile(acceptedFiles[0])
   }, [])
 
-  const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop, accept});
+  const { getRootProps, getInputProps} = useDropzone({ onDrop, accept});
 
-  const onClickDelete = async (e: any) => {
+  const onClickDelete = (e: any) => {
     setFiles([])
   }
   return (
-
     <section className={styles.container}>
       {
         files.length ?
@@ -68,4 +67,5 @@ function Dropzone({ saveFile, content, accept }: DropzonePropsType) {
     </section>
   );
 }
-export default Dropzone;
+Dropzone.whyDidYouRender = true;
+export default React.memo(Dropzone);

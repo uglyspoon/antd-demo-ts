@@ -13,6 +13,7 @@ type ModalPropsType  = {
 }
 
 const defaultStatus = { uploaded: false, failNum: 0, successNum: 0, totalNum: 0, errorList:[] };
+const accept: string[] = ['.zip', '.rar'];
 
 const columns:StandardTableColumnProps[] = [
   {
@@ -170,12 +171,12 @@ const UploadModal = ({visible, toggleVisible}: ModalPropsType) => {
           <MyDropzone
             saveFile={saveFile}
             content={content}
-            accept={['.zip', '.rar']}
+            accept={accept}
           />
       }
     </Modal>
   )
 }
+UploadModal.whyDidYouRender = true
 
-
-export default UploadModal
+export default React.memo(UploadModal)

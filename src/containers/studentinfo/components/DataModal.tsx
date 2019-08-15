@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useCallback} from 'react';
 import { Modal, Button, Alert, Icon } from 'antd';
 import MyDropzone from './Dropzone';
 import request from 'utils/request';
@@ -15,7 +15,14 @@ type ModalPropsType  = {
 }
 
 const defaultStatus = { uploaded: false, failNum: 0, successNum: 0, totalNum: 0 };
-
+const content = (
+  <>
+    <img src={XLS} alt="" style={{width:60}}/>
+    <h1 style={{marginTop: 20}}>将模版拖拽至此区域 或 <a>点击上传</a></h1>
+    <span>仅限制上传10M以下xls或xlsx格式文件</span>
+  </>
+)
+const accept = ['.xlsx', 'xls'];
 const columns:StandardTableColumnProps[] = [
   {
     title: '学生',
@@ -46,17 +53,19 @@ const columns:StandardTableColumnProps[] = [
     dataIndex: 'clazz',
   },
 ]
-
-const UploadModal = ({visible, toggleVisible}: ModalPropsType) => {
+const DataModal = ({visible, toggleVisible}: ModalPropsType) => {
 
   const [file, setFile] = useState()
   const [upStatus, setUpStatus] = useState(defaultStatus)
 
-  const saveFile = (file: File) => {
+  const saveFile = useCallback((file: File) => {
     let formData = new FormData();
     formData.append('file', file);
+
     setFile(formData)
-  }
+
+  }, [setFile])
+
   const downloadTemplateFile = async (event: any) => {
     event.preventDefault();
     const res = await request({
@@ -91,13 +100,7 @@ const UploadModal = ({visible, toggleVisible}: ModalPropsType) => {
     setFile(undefined)
     setUpStatus(defaultStatus)
   }
-  const content = (
-    <>
-      <img src={XLS} alt="" style={{width:60}}/>
-      <h1 style={{marginTop: 20}}>将模版拖拽至此区域 或 <a>点击上传</a></h1>
-      <span>仅限制上传10M以下xls或xlsx格式文件</span>
-    </>
-  )
+
   return (
     <Modal
       title="上传基础数据"
@@ -154,12 +157,12 @@ const UploadModal = ({visible, toggleVisible}: ModalPropsType) => {
           <MyDropzone
             saveFile={saveFile}
             content={content}
-            accept={['.xlsx', 'xls']}
+            accept={accept}
           />
       }
     </Modal>
   )
 }
+DataModal.whyDidYouRender = true
 
-
-export default UploadModal
+export default React.memo(DataModal)

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Form, Row, Col, Input, Select } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
+import request from 'utils/request';
+
 const formItemLayout = {
   labelCol: {
     xs: { span: 24 },
@@ -16,10 +18,17 @@ const { Option } = Select;
 interface IFormComponentProps extends FormComponentProps {
   submitting?: boolean;
   readonly handleSearch?: () => void;
-  style?:any
+  style?: any;
 }
 
 class FormComponent extends React.PureComponent<IFormComponentProps> {
+  componentDidMount = async () => {
+    const res = await request({
+      url: '/conner/clazzList',
+      method: 'get'
+    })
+    console.log('res', res)
+  }
   render() {
     const { getFieldDecorator } = this.props.form;
     const { handleSearch, style } = this.props;
@@ -51,7 +60,6 @@ class FormComponent extends React.PureComponent<IFormComponentProps> {
       </Col>
       <Col span={6}>
         <Form.Item label="班级" labelCol={{ span: 4 }} >
-          {/* labelCol={{ span: 4 }} */}
           {getFieldDecorator(`search_time`, {
             rules: [],
             initialValue: 1,
@@ -69,7 +77,9 @@ class FormComponent extends React.PureComponent<IFormComponentProps> {
             initialValue: 1,
           })(
             <Select>
-              <Option value={1}>全部</Option>
+              <Option value={undefined}>全部</Option>
+              <Option value={1}>男</Option>
+              <Option value={2}>女</Option>
             </Select>
           )}
         </Form.Item>
@@ -78,6 +88,5 @@ class FormComponent extends React.PureComponent<IFormComponentProps> {
   </Form>
   }
 }
-
 
 export default Form.create<IFormComponentProps>()(FormComponent);

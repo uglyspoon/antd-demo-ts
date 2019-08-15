@@ -24,9 +24,10 @@ const request = ({url ,data, method='post', ...rest }: AxiosRequestConfig) => {
       return response.data;
     }
   })
-  .catch(function (error:AxiosResponse) {
+  .catch(function (error:any) {
     // handle error
-    console.log('from request.ts', error);
+    console.log('from request.ts', error.response);
+    console.log(Object.keys(error))
   })
   .finally(function () {
     // always executed

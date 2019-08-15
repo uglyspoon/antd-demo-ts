@@ -8,6 +8,7 @@ import { routeItemType } from 'layouts/BasicLayout';
 import routes from 'routes';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
+import { isTSTypeElement } from '@babel/types';
 
 const AppRoute = ({ Component, Layout, ...rest }: { Component: any, Layout: any, [k: string]: any }) => (
   <Route {...rest} render={props => (
@@ -34,8 +35,7 @@ const renderRoutes = (routes: routeItemType[]):any => {
       return renderRoutes(item.routes)
     } else {
       // return <AppRoute key={item.path} exact path={item.path} Layout={BasicLayout} Component={lazy(() => import('./containers'+item.path))} />
-      return <AsyncComponentRoute key={item.path} exact path={item.path} Component={lazy(() => import('./containers'+item.path))} />
-
+      return <AsyncComponentRoute key={item.path} exact path={item.path} Component={lazy(() => import('./containers'+item.component))} />
     }
   })
 }
