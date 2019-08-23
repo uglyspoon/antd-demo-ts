@@ -1,7 +1,7 @@
-import React, {useEffect, useState, useCallback, MouseEvent} from 'react';
-import styles from './style.module.less';
+import React, {useState, MouseEvent} from 'react';
+import './style.module.less';
 import { ProfileData } from './data.d';
-import { Row, Col, Button, Modal, Alert, Icon, Divider, message } from 'antd';
+import { Row, Col, Button, Modal, Alert, Icon, message } from 'antd';
 import MyDropzone from './components/Dropzone';
 import request from 'utils/request';
 import configs from 'utils/config';

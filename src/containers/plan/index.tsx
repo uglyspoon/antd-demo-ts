@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback, useMemo} from 'react';
 import SimpleForm from './components/SimpleForm';
 import StandardTable, {StandardTableColumnProps} from 'components/StandardTable';
-import { Divider, Card } from 'antd';
+import { Divider, Card, message, Popconfirm } from 'antd';
 import { withRouter,RouteComponentProps } from 'react-router-dom';
 import request from 'utils/request';
 import { isSuccess } from 'utils';
@@ -24,14 +24,23 @@ const Plan = ({ history }: RouteComponentProps) => {
   const [total, setTotal] = useState(0)
   const [params, setParams] = useState(defaultParams)
   const jumpToDetail = (sn:string) => {
-    history.push(`/plan/${sn}`)
+    history.push(`/plan/detail/${sn}`)
   }
+  const canCelPlan = useCallback(async (sn:string) => {
+    const res = await request({
+      url: '/plan/cancel?sn='+sn,
+      method:'get'
+    })
+    if (isSuccess(res)) {
+      message.success('取消成功！')
+      fetchData(params)
+    }
+  }, [])
   const fetchData = useCallback(async (params) => {
     const res = await request({
       url: '/plan/list',
       data: params
     })
-    console.log('res' ,res)
     if (isSuccess(res)) {
       setList(res.data.rows)
       setTotal(res.data.total)
@@ -52,7 +61,7 @@ const Plan = ({ history }: RouteComponentProps) => {
       dataIndex: 'render-1',
       render: (text, row, index) => {
         return <ul style={noneListStyle}>
-          {row.itemList.map((item:any) => <li>{item.name}</li>)}
+          {row.itemList.map((item: any) => <li key={item.id}>{item.name}</li>)}
         </ul>
       }
     },
@@ -61,7 +70,7 @@ const Plan = ({ history }: RouteComponentProps) => {
       dataIndex: 'render-2',
       render: (text, row, index) => {
         return <ul style={noneListStyle}>
-          {row.clazzList.map((item: any) => <li>{item.college}{item.grade}{item.clazz}</li>)}
+          {row.clazzList.map((item: any) => <li key={`${item.college}${item.grade}${item.clazz}`}>{item.college}{item.grade}{item.clazz}</li>)}
         </ul>
       }
     },
@@ -77,9 +86,17 @@ const Plan = ({ history }: RouteComponentProps) => {
       render: (text, record, index) => {
         return (
           <>
-            <a href="#" onClick={() => jumpToDetail(record.sn)}>详情</a>
+            <a href="#" onClick={(e) => { e.preventDefault();jumpToDetail(record.sn) }}>详情</a>
             <Divider type="vertical" />
-            <a href="#" onClick={() => { }}>取消</a>
+            <Popconfirm
+              title="确定要取消此计划吗?"
+              onConfirm={()=>canCelPlan(record.sn)}
+              // onCancel={}
+              okText='确定'
+              cancelText="取消"
+            >
+              <a href="#" onClick={(e) => { e.preventDefault();}}>取消</a>
+            </Popconfirm>
           </>
         )
       }
@@ -110,7 +127,7 @@ const Plan = ({ history }: RouteComponentProps) => {
       <StandardTable
         columns={columns}
         data={data}
-        rowKey='id'
+        rowKey='sn'
         onChange={handleStandardTableChange}
       />
     </Card>

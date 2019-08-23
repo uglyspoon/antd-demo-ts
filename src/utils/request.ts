@@ -1,13 +1,25 @@
 import axios, {AxiosResponse, AxiosRequestConfig} from 'axios';
-// import qs from 'qs';
 import { Cookies } from 'react-cookie';
+import { notification } from 'antd';
 
 const cookie = new Cookies();
 
 axios.defaults.baseURL = 'http://47.99.138.248/admin';
 axios.defaults.headers.common['Authorization'] = cookie.get('token');
+
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
+const handleError = (error:any) => {
+  console.log('error.data', error.data)
+  notification.error({
+    message: '服务器出错啦～',
+    description: `状态码:${error.status}| ${error.data.message}`
+  })
+  console.log('error.data', error.data)
+  if (error.data && error.data.status === 40101) {
+    window.location.replace('/user/login')
+  }
+}
 const request = ({url ,data, method='post', ...rest }: AxiosRequestConfig) => {
   return axios({
     url,
@@ -26,8 +38,7 @@ const request = ({url ,data, method='post', ...rest }: AxiosRequestConfig) => {
   })
   .catch(function (error:any) {
     // handle error
-    console.log('from request.ts', error.response);
-    console.log(Object.keys(error))
+    handleError(error.response)
   })
   .finally(function () {
     // always executed

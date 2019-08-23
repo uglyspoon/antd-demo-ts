@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Row, Col, Button, Select } from 'antd';
 // import { FormComponentProps } from 'antd/es/form';
-import request from 'utils/request';
+// import request from 'utils/request';
 import { withRouter } from 'react-router-dom';
 
 

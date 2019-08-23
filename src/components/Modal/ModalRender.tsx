@@ -12,6 +12,7 @@ interface ModalProps {
   fetchParams?: any;
   onOk?: () => void;
 }
+
 class ModalRender extends React.Component<ModalProps, {}> {
 
   state = {

@@ -56,20 +56,6 @@ const UploadModal = ({visible, toggleVisible}: ModalPropsType) => {
     formData.append('file', file);
     setFile(formData)
   }
-  const downloadTemplateFile = async (event: any) => {
-    event.preventDefault();
-    const res = await request({
-      url: '/file/downloadStuModel',
-      method:'get'
-    })
-    if (isSuccess(res)) {
-      let aElem = document.createElement('a');
-      aElem.href = configs.HOST + '/admin/excel/studentModel.xlsx';
-      var evt = document.createEvent("MouseEvents");
-      evt.initEvent("click", true, true);
-      aElem.dispatchEvent(evt);
-    }
-  }
 
   const handleSubmit = async () => {
     const res  = await request({
@@ -131,10 +117,6 @@ const UploadModal = ({visible, toggleVisible}: ModalPropsType) => {
       />
 
       <div style={{marginTop:20, marginBottom: 10}}>
-        {/* <a href="" style={{ marginRight: 20 }} onClick={downloadTemplateFile}>
-          <Icon type="file" style={{marginRight: 5}}/>下载标准Excel模版
-        </a>
-        <span>(上传前请先下载标准Excel模版并按照标准模版中的说明编辑文件)</span> */}
       </div>
       {
         upStatus.uploaded ?

@@ -1,6 +1,5 @@
-import React, {useEffect, useState, FunctionComponent, useCallback} from 'react';
-import styles from './style.module.less';
-import { ProfileData } from './data.d';
+import React, {useEffect, useState, useCallback,} from 'react';
+import './style.module.less';
 import { Row, Col, Button, Card } from 'antd';
 import request from 'utils/request';
 import StandardTable, {StandardTableColumnProps} from 'components/StandardTable';
@@ -14,8 +13,6 @@ const defaultParams = {
   pageNo: 1,
   pageSize: 10,
 }
-console.log('this should be once');
-
 
 const columns:StandardTableColumnProps[] = [
   {
@@ -58,7 +55,6 @@ const StudentInfo = ({ loading, profile }: any) => {
   const handleStandardTableChange = (
     pagination: any,
   ) => {
-    console.log('pagination', pagination)
     setParams(info => ({
       ...info,
       pageNo: pagination.current,
@@ -79,6 +75,7 @@ const StudentInfo = ({ loading, profile }: any) => {
   useEffect(() => {
     AsyncFetchList()
   }, [params])
+
   const data = {
     list,
     pagination: {
@@ -87,6 +84,14 @@ const StudentInfo = ({ loading, profile }: any) => {
       total
     }
   }
+  const handleSearch = useCallback((formParams:any) => {
+    setParams({...params, ...formParams})
+  }, [])
+
+  const resetForm = useCallback(() => {
+    setParams({...defaultParams})
+  }, [])
+
   return (
     <Card >
       <Row type="flex" justify="end" >
@@ -95,8 +100,7 @@ const StudentInfo = ({ loading, profile }: any) => {
           <Button type="primary" onClick={changePicVisible} icon="upload" style={{ marginRight: 20, marginLeft: 20 }}>上传照片</Button>
         </Col>
       </Row>
-      <SimpleForm style={{ marginTop: 20 }} />
-
+      <SimpleForm handleSearch={handleSearch} resetForm={resetForm} />
       <UploadDataModal
         visible={visible}
         toggleVisible={changeVisible}

@@ -1,4 +1,4 @@
-import { Button, Result } from 'antd';
+import { Result } from 'antd';
 import React from 'react';
 
 // 这里应该使用 antd 的 404 result 组件，

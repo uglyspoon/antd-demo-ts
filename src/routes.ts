@@ -2,17 +2,18 @@ const routes = [
   {
     path: '/welcome',
     name: '欢迎',
-    icon: 'smile'
+    icon: 'smile',
+    component: '/welcome',
   },
   {
     path: '/pmscore',
     name: '体测管理',
     icon: 'pie-chart',
     routes: [
-      // {
-      //   path: '/pmscore',
-      //   redirect: '/pmscore/profile',
-      // },
+      {
+        path: '/pmscore',
+        redirect: '/pmscore/profile',
+      },
       {
         name: '成绩概览',
         path: '/pmscore/profile',
@@ -32,20 +33,28 @@ const routes = [
     name: '体测计划',
     icon: 'info-circle',
     component: '/plan',
+    routes: [
+      {
+        path: '/plan/add',
+        name: '添加体测计划',
+        icon: 'info-circle',
+        component: '/plan/add',
+        hideInMenu:true,
+      },
+      {
+        path: '/plan/detail/:sn',
+        name: '体测计划详情',
+        icon: 'info-circle',
+        component: '/plan/detail',
+        hideInMenu:true,
+      },
+    ]
   },
   {
-    path: '/plan/add',
-    name: '添加体测计划',
-    icon: 'info-circle',
-    component: '/plan/add',
-    hideInMenu:true,
-  },
-  {
-    path: '/plan/:sn',
-    name: '体测计划详情',
-    icon: 'info-circle',
-    component: '/plan/detail',
-    hideInMenu:true,
+    path: '/video',
+    name: '体测视频',
+    icon: 'video-camera',
+    component: '/video',
   },
   {
     path: '/studentinfo',

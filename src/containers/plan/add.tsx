@@ -4,10 +4,11 @@ import TreeSelect from './components/TreeSelect';
 import ModalRender from 'components/Modal/ModalRender';
 import CheckBoxGroup from './components/CheckboxGroup';
 import withModal from 'components/Modal/WithModal';
-import { withRouter } from 'react-router-dom';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 import moment from 'moment';
 import request from 'utils/request';
 import { isSuccess } from 'utils';
+import qs from 'query-string';
 
 interface projectType {
   value: number;
@@ -19,23 +20,23 @@ const projectParams = {
   method: 'get'
 }
 const addButton = <a >+ 添加</a>
-
 const ModalCheckBox = withModal(projectParams, addButton)(CheckBoxGroup)
 
-const AddPlan = ({ history }: {[key:string]:any }) => {
+const AddPlan:React.FC<RouteComponentProps> = ({history, location}) => {
   const [keys, setKeys] = useState<string[]>([]);
   const [projects, setProjects] = useState<projectType[]>([]);
   const [isOk, setIsOk] = useState<boolean>(false);
   const [people, setPeople] = useState<number>(0);
   const [date, setDate] = useState(moment())
   // const {getFieldDecorator} = form
+  const sn = qs.parse(location.search)['sn']
+
   const onChangeDate = (date:any) => {
     setDate(date)
   }
   const onOk = () => {
     setIsOk(true)
   }
-
   const setTargetKeys = (keys: string[]): void => {
     setKeys(keys)
   }
@@ -50,12 +51,32 @@ const AddPlan = ({ history }: {[key:string]:any }) => {
     keys.length ? setPeople(keys.map(item => +item.split('-')[1]).reduce((a, b) => a + b)) : setPeople(0)
   }, [keys])
 
-  const renderTree = ({ data }: { data: any }) => <TreeSelect data={data} setTargetKeys={setTargetKeys} targetKeys={keys}/>
 
+  useEffect(() => {
+    if (!sn) {
+      return
+    }
+    request({
+      url: `/plan/getBySn?sn=${sn}`,
+      method: 'get',
+    }).then(res => {
+      const { data } = res;
+      console.log('data', data, data.clazzList.map((item:any)=>`${item.college}|${item.grade}|${item.clazz}-${item.stuNum}`))
+      setKeys(data.clazzList.map((item:any)=>`${item.college}|${item.grade}|${item.clazz}|-${item.stuNum}`))
+      setIsOk(true)
+      setProjects(data.itemList.map((item: any) => ({ label: item.name, value: item.id })))
+      setDate(moment(data.testDate, 'YYYY-MM-DD'))
+    }).catch(error => {
+      console.log(`/plan/getBySn?sn=${sn}出错`,)
+    })
+  }, [sn])
+
+  const renderTree = ({ data }: { data: any }) => <TreeSelect data={data} setTargetKeys={setTargetKeys} targetKeys={keys}/>
 
   const onCheckOk = (val: any) => {
     val && setProjects(val)
   }
+
   const onSubmit = (e:any) => {
     e && e.preventDefault()
     if (!projects.length) {
@@ -66,7 +87,8 @@ const AddPlan = ({ history }: {[key:string]:any }) => {
       message.warning('请选择班级!')
       return
     }
-    const params = {
+
+    const params:any = {
       testDate: moment(date).format('YYYY-MM-DD'),
       itemIds: projects.map(item => item.value),
       clazzList: keys.map(item => {
@@ -78,13 +100,16 @@ const AddPlan = ({ history }: {[key:string]:any }) => {
         }
       })
     }
-    console.log('params', params)
+
+    if (sn) {
+      params.sn = sn
+    }
     request({
-      url: '/plan/save',
+      url: sn ? '/plan/update' : '/plan/save',
       data: params
     }).then(res => {
       isSuccess(res) && message.success('新增体测计划成功！')
-      history.push('/plan')
+      history.push(sn ? `/plan/detail/${sn}` : '/plan')
     }).catch(err => {
       message.error('出错了～')
     })

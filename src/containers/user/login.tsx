@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Alert, Icon, Input, Tooltip,message } from 'antd';
+import { Button, Icon, Input, Tooltip,message } from 'antd';
 import styles from './login.module.less';
 import request from 'utils/request';
 // import cookie from 'react-cookie';
@@ -15,10 +15,7 @@ const LoginPage:React.FC<RouteComponentProps> = ({history}) => {
   const [username, setUsername] = useState('15121053542');
   const [password, setPassword] = useState('dabai521');
   const [loading, setLoading] = useState(false);
-  const [cookies, setCookie] = useCookies([config.TOKEN_KEY]);
-  const renderMessage = (content: string) => (
-    <Alert style={{ marginBottom: 24 }} message={content} type="error" showIcon />
-  )
+  const [cookie, setCookie] = useCookies([config.TOKEN_KEY]);
   const handleSubmit = async () => {
     setLoading(true)
     const res = await request({

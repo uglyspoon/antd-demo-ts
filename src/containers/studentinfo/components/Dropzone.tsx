@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect,useState } from 'react'
+import React, {useCallback, useState } from 'react'
 import {useDropzone} from 'react-dropzone'
 import styles from './Dropzone.less'
 import XLS from 'assets/xls.svg';
@@ -33,7 +33,7 @@ function Dropzone({ saveFile, content, accept }: DropzonePropsType) {
     })))
 
     saveFile(acceptedFiles[0])
-  }, [])
+  }, [saveFile])
 
   const { getRootProps, getInputProps} = useDropzone({ onDrop, accept});
 

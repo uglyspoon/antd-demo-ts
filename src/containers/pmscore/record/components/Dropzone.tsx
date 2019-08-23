@@ -1,12 +1,9 @@
-import React, {useCallback, useEffect,useState } from 'react'
+import React, {useCallback,useState } from 'react'
 import {useDropzone} from 'react-dropzone'
 import styles from './Dropzone.less'
 import XLS from 'assets/xls.svg';
 import XLSX from 'assets/xlsx.svg';
 import TRASH from 'assets/trash.svg';
-import axios from 'axios';
-import request from 'utils/request';
-
 
 type fileType = {
   name: string;
@@ -20,9 +17,9 @@ function Dropzone({ saveFile }: {saveFile: (file: File) => void}) {
       lastModified: file.lastModified,
     })))
     saveFile(acceptedFiles[0])
-  }, [])
+  }, [saveFile])
 
-  const {acceptedFiles, getRootProps, getInputProps} = useDropzone({onDrop});
+  const {getRootProps, getInputProps} = useDropzone({onDrop});
 
   const onClickDelete = async (e: any) => {
     setFiles([])

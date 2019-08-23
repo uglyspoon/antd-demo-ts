@@ -1,13 +1,13 @@
-import React, {Fragment, useState, useEffect} from 'react';
-import { Row, Col, Button, Card, Badge, Divider, Modal,Form,Input, message } from 'antd';
+import React, {Fragment, useState} from 'react';
+import { Row, Col, Button, Card,  Divider, Modal,Form,Input, message } from 'antd';
 import StandardTable, { StandardTableColumnProps } from 'components/StandardTable';
 import moment from 'moment';
 import { FormComponentProps } from 'antd/es/form';
 import request from 'utils/request';
 
 type IStatusMapType = 'default' | 'processing' | 'success' | 'error';
-const statusMap = ['default', 'processing', 'success', 'error'];
-const status = ['关闭', '运行中', '已上线', '异常'];
+// const statusMap = ['default', 'processing', 'success', 'error'];
+// const status = ['关闭', '运行中', '已上线', '异常'];
 
 const Management = ({form}:FormComponentProps) => {
   const columns: StandardTableColumnProps[] = [
