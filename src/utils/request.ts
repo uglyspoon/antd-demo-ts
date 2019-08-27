@@ -9,6 +9,11 @@ axios.defaults.headers.common['Authorization'] = cookie.get('token');
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
+function getLocalToken() {
+  const token = cookie.get("token");
+  return token;
+}
+
 const handleError = (error:any) => {
   console.log('error.data', error.data)
   notification.error({
@@ -20,6 +25,27 @@ const handleError = (error:any) => {
     window.location.replace('/user/login')
   }
 }
+
+const axiosInstance = axios.create({
+  baseURL: "http://47.99.138.248/admin",
+  timeout: 300000,
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": getLocalToken() // headers塞token
+  }
+});
+
+
+axiosInstance.interceptors.response.use(
+  response => {
+    // 接下来会在这里进行token过期的逻辑处理
+    return response;
+  },
+  error => {
+    return Promise.reject(error);
+  }
+);
+
 const request = ({url ,data, method='post', ...rest }: AxiosRequestConfig) => {
   return axios({
     url,

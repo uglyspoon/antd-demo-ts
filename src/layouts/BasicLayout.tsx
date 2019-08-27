@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Layout, Menu, Icon, Breadcrumb } from 'antd';
-import { Link, withRouter } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './BasicLayout.module.less';
 import GlobalHeader from 'components/GlobalHeader';
 
 import logo from 'assets/logo.svg';
 import routes from 'routes';
 
-const { Header, Content, Footer, Sider } = Layout;
+const { Content, Footer, Sider } = Layout;
 
 const SubMenu = Menu.SubMenu;
 
@@ -21,20 +21,22 @@ export interface routeItemType {
   hideInMenu?: boolean;
 }
 
-const rednerMenuItems = (routes: Array<routeItemType>) => {
+const renderMenuItems = (routes: Array<routeItemType>) => {
   return routes.map(item => {
     if (item.routes && item.routes.some(i=>!i.hideInMenu)) {
-      return <SubMenu
+      return (
+        <SubMenu
           key={item.path}
           title={
             <span>
-              <Icon type={item.icon || 'smile'} />
+              <Icon type={item.icon || "smile"} />
               <span>{item.name}</span>
             </span>
           }
         >
-        {rednerMenuItems(item.routes)}
-      </SubMenu>
+          {renderMenuItems(item.routes)}
+        </SubMenu>
+      );
     } else if (item.redirect || item.hideInMenu) {
       return null
     } else {
@@ -70,12 +72,12 @@ const renderBreadcrumb = (routes: Array<routeItemType>) => {
   })
 }
 
-const BaiscLayout: React.FC = ({ children }) => {
+const BasicLayout: React.FC = ({ children }) => {
   const rootSubmenuKeys = ['/welcome', '/pmscore', '/setting'];
-  const [collapsed, setCollasped] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
   const [openKeys, setOpenKeys] = useState<string[]>(['']);
   const onCollapse = () => {
-    setCollasped(!collapsed);
+    setCollapsed(!collapsed);
   }
   const onOpenChange = (keys:string[]) => {
     const latestOpenKey = keys.find((key: string) => openKeys.indexOf(key) === -1);
@@ -86,43 +88,37 @@ const BaiscLayout: React.FC = ({ children }) => {
     }
   }
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Sider
-        collapsed={collapsed}
-        onCollapse={onCollapse}
-        width={256}
-      >
-        <div className={styles.logo} >
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider collapsed={collapsed} onCollapse={onCollapse} width={256}>
+        <div className={styles.logo}>
           <img src={logo} alt="" />
           <h1>智慧体测管理后台</h1>
         </div>
         <Menu
           theme="dark"
           mode="inline"
-          style={{ padding: '16px 0px' }}
+          style={{ padding: "16px 0px" }}
           openKeys={openKeys}
           onOpenChange={onOpenChange}
         >
-          {rednerMenuItems(routes)}
+          {renderMenuItems(routes)}
         </Menu>
       </Sider>
-    <Layout>
-      <GlobalHeader onCollapse={onCollapse} collapsed={collapsed}/>
-        <Breadcrumb style={{ padding: '10px 0 0 15px' }}>
+      <Layout>
+        <GlobalHeader onCollapse={onCollapse} collapsed={collapsed} />
+        <Breadcrumb style={{ padding: "10px 0 0 15px" }}>
           <Breadcrumb.Item href="/">
             <Icon type="home" />
           </Breadcrumb.Item>
           {renderBreadcrumb(routes)}
         </Breadcrumb>
-        <Content style={{ padding: 15 }}>
-          {children}
-        </Content>
-      <Footer style={{ textAlign: 'center' }}>
+        <Content style={{ padding: 15 }}>{children}</Content>
+        <Footer style={{ textAlign: "center" }}>
           DaBai 2019 Created by Spoon
-      </Footer>
+        </Footer>
       </Layout>
     </Layout>
-  )
+  );
 }
 
-export default BaiscLayout;
+export default BasicLayout;

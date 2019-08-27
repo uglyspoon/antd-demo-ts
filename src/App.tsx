@@ -34,7 +34,14 @@ const renderRoutes = (routes: routeItemType[]):any => {
     if (item.path && item.component) {
       routes.push(<AsyncComponentRoute key={item.path} exact path={item.path} Component={lazy(() => import('./containers' + item.component))} />)
     } else if (item.redirect) {
-      routes.push(<Route exact path={item.path} render={()=><Redirect to={item.redirect as any} />}></Route>)
+      routes.push(
+        <Route
+          exact
+          key={item.path}
+          path={item.path}
+          render={() => <Redirect to={item.redirect as any} />}
+        ></Route>
+      );
     }
     if (item.routes && item.routes.length) {
       routes.push(renderRoutes(item.routes))
