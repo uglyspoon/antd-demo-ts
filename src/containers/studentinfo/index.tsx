@@ -69,6 +69,8 @@ const StudentInfo = ({ history }: RouteComponentProps) => {
       url: "/conner/list",
       data: params
     });
+    // const res = await axiosInstance.post("/conner/list", params);
+    console.log(res)
     if (isSuccess(res)) {
       setList(res.data.rows);
       setTotal(res.data.total);

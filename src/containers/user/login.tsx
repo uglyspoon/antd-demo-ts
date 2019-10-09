@@ -29,7 +29,7 @@ const LoginPage:React.FC<RouteComponentProps> = ({history}) => {
       setCookie(config.TOKEN_KEY, res.data, { path: '/' });
       // Router.push('/welcome')
       message.success('登录成功');
-      history.replace('/welcome');
+      history.push('/welcome');
     } else {
       message.success(`登录失败:${res && res.message}`);
     }

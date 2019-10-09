@@ -44,11 +44,13 @@ const Management = ({form}:FormComponentProps) => {
           url: '/user/add',
           data: values
         })
+        // const res = await axiosInstance.post("/user/add", values);
+        console.log("res", res);
         if (res && res.status === 200) {
           message.success('添加成功！')
           toggleVisible()
         } else {
-          message.error(res.message)
+          // message.error(res.message)
         }
       }
     });

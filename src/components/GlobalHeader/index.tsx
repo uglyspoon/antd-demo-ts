@@ -1,6 +1,9 @@
 import React from 'react';
 import { Layout, Icon, Menu, Dropdown, Avatar } from "antd";
 import styles from "./index.module.less";
+import request from 'utils/request';
+import { cookie } from 'utils/request';
+import { isSuccess } from 'utils';
 
 interface GlobalHeaderProps {
   collapsed?: boolean;
@@ -14,7 +17,14 @@ const GlobalHeader = ({
   currentUser ={}
 }: GlobalHeaderProps) => {
   const onClick = ({key}:any) => {
-    console.log("key", key);
+    if (key === 'logout') {
+      request({url: "/igt/logout"})
+        .then( data => {
+          if (isSuccess(data)){
+            cookie.remove('token')
+          }
+        })
+    }
   }
   const menu = (
     <Menu className={styles.menu} selectedKeys={[]} onClick={onClick}>
