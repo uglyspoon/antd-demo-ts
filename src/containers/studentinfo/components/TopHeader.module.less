@@ -2,22 +2,325 @@
   background: #fff;
   padding: 40px;
   display: flex;
+  justify-content: space-between;
+
   .avatar {
     width: 150px;
+    height: 150px;
+    border-radius: 50%;
+  }
+}
+
+.topBox {
+  background: #fff;
+  height: 65px;
+  border-bottom: 1px solid #F5F5F5;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  padding-left: 16px;
+  padding-top: 10px;
+  font-size: 14px;
+
+  h1 {
+    color: '#01152A';
+    font-size: 26px;
+    margin-bottom: 0;
+  }
+
+  div {
+    color: #989FAA;
+
+    span {
+      margin-right: 20px;
+    }
+
+    img {
+      width: 14px;
+    }
+  }
+}
+
+.container2 {
+  padding: 20px;
+  padding-bottom: 30px;
+  position: relative;
+  flex-direction: column;
+  align-items: center;
+
+  .scoreBox {
+    margin-top: 20px;
+    position: relative;
+    padding: 20px 10px;
+
+    .bestBox {
+      position: absolute;
+      top: -50px;
+      left: 0;
+      background: #164475;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      display: flex;
+      height: 50px;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+
+      img {
+        width: 20px;
+        height: 16px;
+        margin-left: 12px;
+        margin-right: 10px;
+      }
+
+      >div {
+        width: 90px;
+
+        span {
+          display: block;
+
+          &:first-of-type {
+            font-weight: bold;
+            font-size: 16px;
+          }
+
+          &:last-of-type {
+            color: #dedede;
+
+          }
+        }
+      }
+    }
+
+    p {
+      margin-bottom: 0px;
+    }
+
+    >div {
+      p {
+        &:first-of-type {
+          margin-bottom: 5px;
+
+          color: #989FAA;
+          font-size: 12px;
+        }
+
+        &:last-of-type {
+          color: #525964;
+          font-size: 22px;
+          font-weight: bold;
+
+          span {
+            font-size: 12px;
+            font-weight: normal;
+          }
+        }
+      }
+
+    }
+
+    display: flex;
+    width: 80%;
+    height: 80px;
+    align-items: center;
+    justify-content: space-around;
+    // border: 1px dashed #1791FF;
+    border: 1px dashed transparent;
+    border-radius: 8px;
+    background: linear-gradient(white, white) padding-box,
+    repeating-linear-gradient(-45deg, #1791FF 0, #1791FF 0.5em, #fff 0, #fff 1em);
+  }
+
+  .avatar {
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
   }
 
+  .infoBox {
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    .cardName {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 18px;
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .centerBox {
+    display: flex;
+    align-items: center;
+    height: 100%;
+
+    .title {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 20px;
+        height: 20px;
+        margin: 0 10px;
+      }
+    }
+
+    >img {
+      width: 76px;
+      border-radius: 50%;
+      margin-right: 27px;
+      height: 76px;
+    }
+
+    div {
+      color: #525964;
+
+      p {
+        margin-bottom: 10px;
+
+        &:first-of-type {
+          font-size: 17px;
+          font-weight: bold;
+        }
+
+        &:last-of-type {
+          color: #989FAA;
+
+          span {
+            margin-right: 20px;
+          }
+        }
+      }
+
+      img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+
+    h1 {
+      color: #525964;
+      font-size: 26px;
+    }
+  }
+
+  .rightBox {
+    align-items: flex-start;
+    height: 100%;
+    padding-right: 20px;
+
+    .exportLink {
+      // color: #F6F6F6;
+      font-size: 14px;
+      margin-right: 20px;
+
+      img {
+        width: 14px;
+        margin-left: 5px;
+      }
+    }
+  }
 }
-.infoBox {
-  margin-left: 20px;
-  p {
-    color: #000;
+
+.leftBox {
+  display: flex;
+
+  :global {
+    .ant-tag {
+      border: none;
+      color: #777F85;
+    }
   }
-  p > span {
-    
-    margin-right: 20px;
+
+  .infoBox {
+    margin-left: 20px;
+
+
+    p {
+      color: #666666;
+    }
+
+    p>span {
+
+      margin-right: 20px;
+    }
+
+    p.tagList {
+      color: #989FAA;
+    }
+
+    .title {
+      display: flex;
+      align-items: center;
+
+      img {
+        width: 20px;
+        height: 20px;
+        margin: 0 10px;
+      }
+    }
+
+    .champ {
+      background: url('../../../assets/长跑冠军.png') no-repeat;
+      background-size: contain;
+      color: #fff;
+      height: 32px;
+      width: 110px;
+      font-size: 12px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
-  p.tagList{
-    color: #817F82;
+}
+
+.champ {
+  background: url('../../../assets/长跑冠军.png') no-repeat;
+  background-size: contain;
+  color: #fff !important;
+  font-weight: normal !important;
+  height: 32px;
+  width: 110px;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.rightBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .rightHeader {
+    display: flex;
+
+    >div {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+      margin: 0 15px;
+    }
+
+    p {
+      text-align: center;
+    }
+
+    img {
+      width: 35px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .bestBox {
+    display: none !important;
   }
 }

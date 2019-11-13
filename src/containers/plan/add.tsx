@@ -1,5 +1,5 @@
-import React, {useState, useEffect} from 'react';
-import { Form,Row,Col, Button, DatePicker, Card, Input, Modal, Tag, message } from 'antd';
+import React, { useState, useEffect } from 'react';
+import { Form, Row, Col, Button, DatePicker, Card, Input, Modal, Tag, message } from 'antd';
 import TreeSelect from './components/TreeSelect';
 import ModalRender from 'components/Modal/ModalRender';
 import CheckBoxGroup from './components/CheckboxGroup';
@@ -22,7 +22,7 @@ const projectParams = {
 const addButton = <a >+ 添加</a>
 const ModalCheckBox = withModal(projectParams, addButton)(CheckBoxGroup)
 
-const AddPlan:React.FC<RouteComponentProps> = ({history, location}) => {
+const AddPlan: React.FC<RouteComponentProps> = ({ history, location }) => {
   const [keys, setKeys] = useState<string[]>([]);
   const [projects, setProjects] = useState<projectType[]>([]);
   const [isOk, setIsOk] = useState<boolean>(false);
@@ -31,7 +31,7 @@ const AddPlan:React.FC<RouteComponentProps> = ({history, location}) => {
   // const {getFieldDecorator} = form
   const sn = qs.parse(location.search)['sn']
 
-  const onChangeDate = (date:any) => {
+  const onChangeDate = (date: any) => {
     setDate(date)
   }
   const onOk = () => {
@@ -40,8 +40,8 @@ const AddPlan:React.FC<RouteComponentProps> = ({history, location}) => {
   const setTargetKeys = (keys: string[]): void => {
     setKeys(keys)
   }
-  const onClose = (el:string)  => {
-    setKeys(keys.filter(item=> item !== el))
+  const onClose = (el: string) => {
+    setKeys(keys.filter(item => item !== el))
   }
   const onCloseProject = (peoject: projectType) => {
     setProjects(projects.filter(item => item !== peoject))
@@ -61,23 +61,23 @@ const AddPlan:React.FC<RouteComponentProps> = ({history, location}) => {
       method: 'get',
     }).then(res => {
       const { data } = res;
-      console.log('data', data, data.clazzList.map((item:any)=>`${item.college}|${item.grade}|${item.clazz}-${item.stuNum}`))
-      setKeys(data.clazzList.map((item:any)=>`${item.college}|${item.grade}|${item.clazz}|-${item.stuNum}`))
+      console.log('data', data, data.clazzList.map((item: any) => `${item.college}|${item.grade}|${item.clazz}-${item.stuNum}`))
+      setKeys(data.clazzList.map((item: any) => `${item.college}|${item.grade}|${item.clazz}|-${item.stuNum}`))
       setIsOk(true)
       setProjects(data.itemList.map((item: any) => ({ label: item.name, value: item.id })))
       setDate(moment(data.testDate, 'YYYY-MM-DD'))
     }).catch(error => {
-      console.log(`/plan/getBySn?sn=${sn}出错`,)
+      console.log(`/plan/getBySn?sn=${sn}出错`)
     })
   }, [sn])
 
-  const renderTree = ({ data }: { data: any }) => <TreeSelect data={data} setTargetKeys={setTargetKeys} targetKeys={keys}/>
+  const renderTree = ({ data }: { data: any }) => <TreeSelect data={data} setTargetKeys={setTargetKeys} targetKeys={keys} />
 
   const onCheckOk = (val: any) => {
     val && setProjects(val)
   }
 
-  const onSubmit = (e:any) => {
+  const onSubmit = (e: any) => {
     e && e.preventDefault()
     if (!projects.length) {
       message.warning('请选择项目!')
@@ -88,7 +88,7 @@ const AddPlan:React.FC<RouteComponentProps> = ({history, location}) => {
       return
     }
 
-    const params:any = {
+    const params: any = {
       testDate: moment(date).format('YYYY-MM-DD'),
       itemIds: projects.map(item => item.value),
       clazzList: keys.map(item => {
@@ -119,25 +119,25 @@ const AddPlan:React.FC<RouteComponentProps> = ({history, location}) => {
       <h3>新建计划</h3>
       <Form onSubmit={onSubmit}>
         <Row gutter={12} type="flex" justify="space-between">
-          <Col {...{xs: 24, sm: 12, lg:24}}>
-            <Form.Item label="体测日期" labelCol={{ span: 2 }} wrapperCol={{span: 18}}>
-              <DatePicker onChange={onChangeDate} value={date}/>
+          <Col {...{ xs: 24, sm: 12, lg: 24 }}>
+            <Form.Item label="体测日期" labelCol={{ span: 2 }} wrapperCol={{ span: 18 }}>
+              <DatePicker onChange={onChangeDate} value={date} />
             </Form.Item>
           </Col>
 
         </Row>
         <Row gutter={12}>
-          <Col {...{xs: 24, sm: 12, lg:24}}>
-            <Form.Item label="体测班级" labelCol={{ span: 2 }} wrapperCol={{span: 22}}>
+          <Col {...{ xs: 24, sm: 12, lg: 24 }}>
+            <Form.Item label="体测班级" labelCol={{ span: 2 }} wrapperCol={{ span: 22 }}>
               {
                 keys.length && isOk ? <div>
                   {keys.map(item => (
-                    <Tag closable onClose={()=>onClose(item)} color="blue" key={item}>
+                    <Tag closable onClose={() => onClose(item)} color="blue" key={item}>
                       {item.split('-')[0].slice(0, -1)}
                     </Tag>))
                   }
                   <div>{`共${people}人`}</div>
-                </div> :null
+                </div> : null
               }
               <ModalRender
                 title="选择测试班级"
@@ -153,17 +153,18 @@ const AddPlan:React.FC<RouteComponentProps> = ({history, location}) => {
           </Col>
         </Row>
         <Row gutter={12}>
-          <Col {...{xs: 24, sm: 12, lg:24}}>
-            <Form.Item label="体测项目" labelCol={{ span: 2 }} wrapperCol={{span: 18}}>
+          <Col {...{ xs: 24, sm: 12, lg: 24 }}>
+            <Form.Item label="体测项目" labelCol={{ span: 2 }} wrapperCol={{ span: 18 }}>
               {
                 projects.length ?
-                projects.map((item:projectType) => (
-                  <Tag closable onClose={()=>onCloseProject(item)} color="blue" key={item.value}>
-                    {item.label}
-                  </Tag>)) :
-                null
+                  projects.map((item: projectType) => (
+                    <Tag closable onClose={() => onCloseProject(item)} color="blue" key={item.value}>
+                      {item.label}
+                    </Tag>)) :
+                  null
               }
-              <ModalCheckBox onOk={onCheckOk} checkedList={projects.map(r=>r.value)}/>
+              {console.log('projects1', projects)}
+              <ModalCheckBox onOk={onCheckOk} checkedList={projects.map(r => r.value)} />
             </Form.Item>
           </Col>
         </Row>

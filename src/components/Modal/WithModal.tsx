@@ -1,6 +1,6 @@
 import React from 'react';
 import request from 'utils/request';
-import {isSuccess} from 'utils';
+import { isSuccess } from 'utils';
 import { Modal } from 'antd';
 
 type urlParamsType = {
@@ -8,14 +8,14 @@ type urlParamsType = {
   [k: string]: any;
 }
 
-const withModal = (fetchParams:urlParamsType, trigger: any) => ( WrappedComponent:any) =>  {
-  return class extends React.Component<{[k: string]: any}, { data: any, visible:boolean, values:any }> {
-    constructor(props:any) {
+const withModal = (fetchParams: urlParamsType, trigger: any) => (WrappedComponent: any) => {
+  return class extends React.Component<{ [k: string]: any }, { data: any, visible: boolean, values: any }> {
+    constructor(props: any) {
       super(props);
       this.state = {
         visible: false,
         data: {},
-        values:undefined,
+        values: undefined,
       };
     }
 
@@ -44,22 +44,23 @@ const withModal = (fetchParams:urlParamsType, trigger: any) => ( WrappedComponen
       this.toggleVisible()
       this.props.onOk && this.props.onOk(this.state.values)
     }
-    onChange = (values:any) => {
-      this.setState({values})
+    onChange = (values: any) => {
+      this.setState({ values })
     }
     render() {
+
       return (
         <>
-          {React.cloneElement(trigger, {onClick: this.toggleVisible})}
+          {React.cloneElement(trigger, { onClick: this.toggleVisible })}
           <Modal
             visible={this.state.visible}
             title={this.props.title}
             width={this.props.width}
             onCancel={this.toggleVisible}
             onOk={this.onOk}
-            // destroyOnClose={true}
+            destroyOnClose={true}
           >
-            <WrappedComponent {...this.state} {...this.props} onChange={this.onChange}/>
+            <WrappedComponent {...this.state} {...this.props} onChange={this.onChange} />
           </Modal>
         </>
       )

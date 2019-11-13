@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Row, Col, Select, Button } from 'antd';
+import { Form, Row, Col, Select, Button, Input } from 'antd';
 import { FormComponentProps } from 'antd/es/form';
 import request from 'utils/request';
 import { isSuccess } from 'utils';
@@ -19,7 +19,7 @@ const { Option } = Select;
 
 interface IFormComponentProps extends FormComponentProps {
   submitting?: boolean;
-  readonly handleSearch: (params:any) => void;
+  readonly handleSearch: (params: any) => void;
   readonly resetForm: () => void;
   style?: any;
 }
@@ -36,7 +36,7 @@ class FormComponent extends React.PureComponent<IFormComponentProps, {
     clazzList: [],
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.getCollegeData();
     this.getGradeData();
     this.getClazzData();
@@ -75,11 +75,11 @@ class FormComponent extends React.PureComponent<IFormComponentProps, {
       })
     }
   }
-  handleSearch = (e:any) => {
+  handleSearch = (e: any) => {
     e.preventDefault()
     const { form, handleSearch } = this.props;
     const values = form.getFieldsValue();
-    handleSearch && handleSearch({...values})
+    handleSearch && handleSearch({ ...values })
   }
   resetForm = (e: any) => {
     e.preventDefault();
@@ -89,60 +89,72 @@ class FormComponent extends React.PureComponent<IFormComponentProps, {
   }
   render() {
     const { getFieldDecorator } = this.props.form;
-    const { handleSearch, style={} } = this.props;
+    const { handleSearch, style = {} } = this.props;
     const { collegeList, gradeList, clazzList } = this.state;
     return (
       <Form {...formItemLayout} className={styles.formContainer} onSubmit={this.handleSearch} style={style}>
         <Row gutter={12} type="flex" align="middle">
-          <Col span={5}>
-              <Form.Item label="院系" labelCol={{ span: 4 }} wrapperCol={{span: 20}}>
+          <Col lg={6} xs={12}>
+            <Form.Item label="姓名" labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
+              {getFieldDecorator(`name`, {
+                rules: [],
+              })(
+                <Input placeholder="输入姓名" />
+              )}
+            </Form.Item>
+          </Col>
+          <Col lg={6} xs={12}>
+            <Form.Item label="院系" labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
               {getFieldDecorator(`college`, {
                 rules: [],
               })(
                 <Select placeholder="--全部--" allowClear>
-                  {collegeList.map((item:string)=> <Option value={item}>{item}</Option>)}
+                  {collegeList.map((item: string) => <Option value={item}>{item}</Option>)}
                 </Select>
               )}
             </Form.Item>
           </Col>
-          <Col span={5}>
-            <Form.Item label="年级" labelCol={{ span: 4 }} wrapperCol={{span: 20}}>
+          <Col lg={6} xs={12}>
+            <Form.Item label="年级" labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
               {getFieldDecorator(`grade`, {
                 rules: [],
               })(
                 <Select placeholder="--全部--" allowClear>
-                  {gradeList.map((item:string)=> <Option value={item}>{item}</Option>)}
+                  {gradeList.map((item: string) => <Option value={item}>{item}</Option>)}
                 </Select>
               )}
             </Form.Item>
           </Col>
-          <Col span={5}>
-            <Form.Item label="班级" labelCol={{ span: 4 }} >
+          <Col lg={6} xs={12}>
+            <Form.Item label="班级" labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
               {getFieldDecorator(`clazz`, {
                 rules: [],
               })(
                 <Select placeholder="--全部--" allowClear>
-                  {clazzList.map((item:string)=> <Option value={item}>{item}</Option>)}
+                  {clazzList.map((item: string) => <Option value={item}>{item}</Option>)}
                 </Select>
               )}
             </Form.Item>
-            </Col>
-            <Col span={5}>
-              <Form.Item label="性别" labelCol={{ span: 4 }} wrapperCol={{span: 18}}>
-                {getFieldDecorator(`sex`, {
-                  rules: [],
-                })(
-                  <Select placeholder="--全部--" allowClear>
-                    <Option value={1}>男</Option>
-                    <Option value={2}>女</Option>
-                  </Select>
-                )}
-              </Form.Item>
-            </Col>
-            <Col span={4}>
-              <Button type="primary" style={marginRight} htmlType='submit'>搜索</Button>
-              <Button onClick={this.resetForm}>重置</Button>
-            </Col>
+          </Col>
+
+        </Row>
+        <Row gutter={12} type="flex" justify="space-between">
+          <Col lg={6} xs={12}>
+            <Form.Item label="性别" labelCol={{ span: 4 }} wrapperCol={{ span: 20 }}>
+              {getFieldDecorator(`sex`, {
+                rules: [],
+              })(
+                <Select placeholder="--全部--" allowClear>
+                  <Option value={1}>男</Option>
+                  <Option value={2}>女</Option>
+                </Select>
+              )}
+            </Form.Item>
+          </Col>
+          <Col lg={6} xs={12} style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+            <Button type="primary" style={marginRight} htmlType='submit'>搜索</Button>
+            <Button onClick={this.resetForm}>重置</Button>
+          </Col>
         </Row>
       </Form>
     )

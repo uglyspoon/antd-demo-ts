@@ -1,12 +1,12 @@
 import { Axis, Chart, Geom, Tooltip, Coord } from 'bizcharts';
 import React, { Component } from 'react';
 
-import {debounce} from 'lodash';
+import { debounce } from 'lodash';
 import autoHeight from '../AutoHeight';
 import styles from '../index.less';
 
 export interface BarProps {
-  title: React.ReactNode;
+  title?: React.ReactNode;
   color?: string;
   padding?: [number, number, number, number];
   height?: number;
@@ -27,7 +27,7 @@ class Bar extends Component<
   {
     autoHideXLabels: boolean;
   }
-> {
+  > {
   static defaultProps = {
     titleFontSize: 14,
     titlePosition: 'left',

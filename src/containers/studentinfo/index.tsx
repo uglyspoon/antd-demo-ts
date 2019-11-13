@@ -1,14 +1,14 @@
-import React, {useEffect, useState, useCallback,} from 'react';
+import React, { useEffect, useState, useCallback, } from 'react';
 import './style.module.less';
 import { Row, Col, Button, Card } from 'antd';
 import request from 'utils/request';
-import StandardTable, {StandardTableColumnProps} from 'components/StandardTable';
+import StandardTable, { StandardTableColumnProps } from 'components/StandardTable';
 import SimpleForm from './components/SimpleForm';
 import { isSuccess } from 'utils';
 import UploadDataModal from './components/DataModal';
 import UploadPicModal from './components/PicModal';
 import { useVisible } from './hooks';
-import { withRouter, RouteComponentProps,NavLink } from 'react-router-dom';
+import { withRouter, RouteComponentProps, NavLink } from 'react-router-dom';
 
 const defaultParams = {
   pageNo: 1,
@@ -27,8 +27,8 @@ const StudentInfo = ({ history }: RouteComponentProps) => {
     {
       title: "学生",
       dataIndex: "name",
-      render: (val, row:any) => {
-        return <NavLink to={`/studentinfo/${row.id}`}>{val}</NavLink>; 
+      render: (val, row: any) => {
+        return <NavLink to={`/studentinfo/${row.id}`}>{val}</NavLink>;
       }
     },
     {
@@ -70,7 +70,7 @@ const StudentInfo = ({ history }: RouteComponentProps) => {
       data: params
     });
     // const res = await axiosInstance.post("/conner/list", params);
-    console.log(res)
+    // console.log(res)
     if (isSuccess(res)) {
       setList(res.data.rows);
       setTotal(res.data.total);

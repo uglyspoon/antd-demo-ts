@@ -1,0 +1,364 @@
+@media(max-width: 768px) {
+  .container {
+    :global {
+      .ant-row {
+        >div {
+          // white-space: nowrap;
+
+          &:nth-of-type(4) {
+            span {
+              margin-left: 5px !important;
+              font-size: 12px;
+            }
+          }
+        }
+      }
+    }
+
+    .subright2 {
+      white-space: nowrap;
+
+      span {
+        font-size: 17px !important;
+      }
+    }
+
+    .basicData {
+      .left {
+        strong {
+          font-size: 16px !important;
+        }
+      }
+
+      .right {
+        .dataBox {
+          display: flex;
+          align-items: center;
+          margin: 10px 0;
+
+          >span {
+            font-size: 16px !important;
+            font-weight: bold;
+            margin-right: 5px;
+            word-break: break-word !important;
+          }
+
+          >div {
+            min-width: 42px !important;
+          }
+        }
+      }
+    }
+  }
+}
+
+.container {
+  padding: 30px 20px;
+
+  .advice {
+    // height: 210px;
+    background: #fff;
+    border-radius: 3px;
+    color: #525964;
+    margin-top: 20px;
+
+    >p.title {
+      color: #525964;
+      font-size: 18px;
+      font-weight: bold;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding-left: 25px;
+      margin: 0;
+      border-bottom: 1px solid #F6F6F6;
+    }
+
+    >div {
+      padding: 20px 10px;
+    }
+
+    p:not(:first-of-type) {
+      letter-spacing: 0px;
+
+
+    }
+  }
+
+  .basicData {
+    height: 210px;
+    background: #fff;
+    // padding: 30px 25px;
+    border-radius: 3px;
+    color: #525964;
+    margin-top: 20px;
+
+    // .title {
+    //   font-size: 18px;
+    //   margin: 0;
+    // }
+    .title {
+      color: #525964;
+      font-size: 18px;
+      font-weight: bold;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding-left: 25px;
+      margin: 0;
+      border-bottom: 1px solid #F6F6F6;
+    }
+
+    .right {
+      .dataBox {
+        display: flex;
+        align-items: center;
+        margin: 10px 0;
+
+        >span {
+          font-size: 20px;
+          font-weight: bold;
+          margin-right: 5px;
+        }
+
+        >div {
+          min-width: 60px;
+          // white-space: nowrap;
+
+          .type1 {
+            font-size: 12px;
+            color: #81D135;
+          }
+
+          .type2 {
+            font-size: 12px;
+            color: #F3A536;
+          }
+
+          .type3 {
+            font-size: 12px;
+            color: #CE0B24;
+          }
+
+          .type4 {
+            font-size: 12px;
+            color: #CE0B24;
+          }
+
+          p {
+            margin-bottom: 0;
+            text-align: left;
+            // font-weight: bold;
+            color: #989FAA;
+          }
+
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+        }
+      }
+    }
+  }
+
+  .antRow {
+    >div {
+      height: 100%;
+
+      &:nth-of-type(1) {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
+      &:nth-of-type(2) {
+        font-weight: normal;
+
+        b {
+          color: #525964;
+        }
+
+        i {
+          font-style: normal;
+          font-size: 14px;
+          margin-left: 3px;
+        }
+
+        ;
+        font-size: 18px;
+      }
+
+      &:nth-of-type(4) {
+        font-weight: bold;
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        img {
+          width: 25px;
+          height: 25px;
+        }
+
+        // font-size: 18px;
+        span {
+          margin-left: 20px;
+        }
+
+        padding: 30px 0;
+      }
+    }
+  }
+
+  .physicalBox {
+    background: #fff;
+    padding: 20px 18px;
+    margin-top: 20px;
+    border-radius: 3px;
+
+    >p {
+      font-size: 18px;
+      padding-left: 20px;
+    }
+
+    .subright2 {
+      padding: 30px;
+      text-align: left;
+      padding-left: 30px;
+      // font-weight: bold;
+      color: #989FAA;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      line-height: 22px;
+
+      span {
+        font-size: 22px;
+        margin-left: 20px;
+      }
+    }
+  }
+
+  .dividerContainer {
+    width: 100%;
+    display: flex;
+    padding: 10px 30px;
+    justify-content: center;
+  }
+
+  .performnaceContainer {
+    border-radius: 3px;
+    background: #fff;
+
+    .title {
+      color: #525964;
+      font-size: 18px;
+      font-weight: bold;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      padding-left: 25px;
+      margin: 0;
+      border-bottom: 1px solid #F6F6F6;
+    }
+  }
+
+  .performnace {
+    &.fix {
+      height: 150px;
+      padding: 15px 10px;
+      // padding: 0;
+
+      .left {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+
+        strong {
+          font-size: 24px;
+        }
+      }
+
+      .right {
+        justify-content: space-around;
+      }
+    }
+
+    height: 210px;
+    background: #fff;
+    padding: 20px 25px;
+
+
+    >div {
+      height: 100%;
+    }
+
+    .left {
+      // display: flex;
+      text-align: center;
+      color: #525964;
+      font-size: 18px;
+      text-align: center;
+      // display: flex;
+      // flex-direction: column;
+      // justify-content: center;
+      // align-items: center;
+
+      .circle {
+        height: 77px;
+        width: 77px;
+        margin: 0 auto;
+        border: 1px solid #525964;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+      }
+
+      .desc {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #989FAA;
+      }
+
+      .basicTitle {
+        span {
+          display: inline-block;
+          width: 100px;
+          text-align: right;
+        }
+      }
+    }
+
+    .middle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .right {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .flexBox {
+      display: table;
+      width: 100%;
+
+      justify-content: space-between;
+
+      >div {
+        display: table-cell;
+        width: 50%;
+
+        img {
+          width: 34px;
+          margin-right: 10px;
+        }
+
+        * {
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}

@@ -1,29 +1,34 @@
 import React from 'react';
-import { Layout, Icon, Menu, Dropdown, Avatar } from "antd";
+import { Layout, Icon, Menu, Dropdown, Avatar, message } from "antd";
 import styles from "./index.module.less";
 import request from 'utils/request';
 import { cookie } from 'utils/request';
 import { isSuccess } from 'utils';
+import { Link } from 'react-router-dom';
+
 
 interface GlobalHeaderProps {
   collapsed?: boolean;
   onCollapse?: any;
-  currentUser?:any;
+  currentUser?: any;
 }
 
 const GlobalHeader = ({
   collapsed,
   onCollapse,
-  currentUser ={}
+  currentUser = {}
 }: GlobalHeaderProps) => {
-  const onClick = ({key}:any) => {
+  const onClick = ({ key }: any) => {
     if (key === 'logout') {
-      request({url: "/igt/logout"})
-        .then( data => {
-          if (isSuccess(data)){
-            cookie.remove('token')
-          }
-        })
+      // request({url: "/igt/logout"})
+      //   .then( data => {
+      //     if (isSuccess(data)){
+      //       cookie.remove('token')
+      //     }
+      //   })
+      cookie.remove('token')
+    } else if (key === 'setting') {
+      message.info('暂未开放')
     }
   }
   const menu = (
@@ -33,8 +38,10 @@ const GlobalHeader = ({
         账号设置
       </Menu.Item>
       <Menu.Item key="logout">
-        <Icon type="logout" />
-        退出登录
+        <Link to="/user/login">
+          <Icon type="logout" />
+          退出登录
+        </Link>
       </Menu.Item>
     </Menu>
   );

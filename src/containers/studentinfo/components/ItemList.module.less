@@ -1,51 +1,170 @@
-.ItemContainer {
-  // display: flex;
-}
+@import '~antd/lib/style/themes/default.less';
+
 .rowContainer {
   margin-bottom: 30px;
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+
+  .rowItem {
+    width: 45%;
+    margin-bottom: 20px;
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 5px;
+
+    >p {
+      &:first-of-type {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        >span {
+          color: #9B9B9B;
+        }
+
+        i {
+          font-style: normal;
+          display: block;
+          border: 1px solid #979797;
+          border-radius: 50%;
+          padding: 7px 10px 7px 10px;
+          background: #D8D8D8;
+        }
+      }
+
+      &:nth-of-type(2) {
+        >img {
+          margin-right: 5px;
+          margin-left: 5px;
+        }
+      }
+    }
+
+    >em {
+      font-size: 2.2em;
+      font-style: normal;
+      font-weight: bold;
+    }
+  }
+
+  .cardName {
+    display: flex;
+    align-items: center;
+    margin: 0;
+
+    span {
+      margin-left: 10px;
+      font-size: 18px;
+      color: #525964;
+      font-weight: bold;
+    }
+  }
+
   :global {
+
+    .ant-divider-horizontal {
+      margin: 0 10px;
+    }
+
     .ant-col {
       display: flex;
       padding: 20px;
       justify-content: space-between;
       flex-direction: column;
-      height: 200px;
       background: #fff;
       border-radius: 3px;
-      >p{
-        &:first-of-type{
+
+      >p {
+        &:first-of-type {
           display: flex;
           justify-content: space-between;
           align-items: center;
+
           >span {
             color: #9B9B9B;
           }
-          i{
+
+          i {
             font-style: normal;
             display: block;
-            border: 1px solid #979797 ;
+            border: 1px solid #979797;
             border-radius: 50%;
             padding: 7px 10px 7px 10px;
             background: #D8D8D8;
           }
         }
-        &:nth-of-type(2){
+
+        &:nth-of-type(2) {
           >img {
             margin-right: 5px;
             margin-left: 5px;
           }
         }
       }
+
       >em {
-          font-size: 2.2em;
-          font-style: normal;
-          font-weight: bold;
-        }
+        font-size: 2.2em;
+        font-style: normal;
+        font-weight: bold;
+      }
     }
   }
+
   img {
     width: 15px;
+  }
+}
+
+.bottomBox {
+  display: flex;
+
+  // justify-content: space-between;
+  .scoreBox {
+    padding-top: 20px;
+    display: flex;
+    flex: 7;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    >div {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 50%;
+
+      span {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 8px;
+      }
+
+      strong {
+        font-size: 22px;
+        margin-bottom: 12px;
+      }
+    }
+  }
+
+  .chartBox {
+    flex: 7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .rowContainer {
+    .rowItem {
+      width: 90%;
+    }
   }
 }

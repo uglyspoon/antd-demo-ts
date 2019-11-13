@@ -4,20 +4,46 @@
   padding-left: 24px;
   overflow: hidden;
   line-height: 64px;
-  background: #001529;
+  background: #021529;
   transition: all .3s;
+
   img {
     display: inline-block;
     height: 32px;
     vertical-align: middle;
   }
+
   h1 {
     display: inline-block;
     margin: 0 0 0 12px;
     color: #fff;
     font-weight: 600;
     font-size: 20px;
-    font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+    font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
     vertical-align: middle;
   }
+}
+
+:global {
+
+  .ant-layout-sider,
+  .ant-menu-light {
+    background: #021529;
+    color: #fff;
+  }
+
+  .ant-menu-submenu>.ant-menu {
+    background: #082442;
+    color: #fff;
+  }
+
+  .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: #2594FC;
+    color: #fff;
+  }
+
+  // .ant-layout-sider,
+  // .ant-menu-light {
+  //   background-color: #2594FC;
+  // }
 }

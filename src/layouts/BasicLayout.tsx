@@ -23,13 +23,13 @@ export interface routeItemType {
 
 const renderMenuItems = (routes: Array<routeItemType>) => {
   return routes.map(item => {
-    if (item.routes && item.routes.some(i=>!i.hideInMenu)) {
+    if (item.routes && item.routes.some(i => !i.hideInMenu)) {
       return (
         <SubMenu
           key={item.path}
           title={
             <span>
-              <Icon type={item.icon || "smile"} />
+              {item.icon ? <Icon type={item.icon} /> : null}
               <span>{item.name}</span>
             </span>
           }
@@ -41,7 +41,7 @@ const renderMenuItems = (routes: Array<routeItemType>) => {
       return null
     } else {
       return <Menu.Item key={item.path}>
-        <Icon type={item.icon || 'smile'} />
+        {item.icon ? <Icon type={item.icon} /> : null}
         <span>{item.name}</span>
         <Link to={item.path} />
       </Menu.Item>
@@ -51,16 +51,16 @@ const renderMenuItems = (routes: Array<routeItemType>) => {
 
 const renderBreadcrumb = (routes: Array<routeItemType>) => {
   const { pathname } = window.location;
-  const breadcrumbList:{path:string, name?: string}[] = [];
+  const breadcrumbList: { path: string, name?: string }[] = [];
   routes.forEach(item => {
     if (item.path === pathname) {
-      breadcrumbList.push({name: item.name, path: item.path})
+      breadcrumbList.push({ name: item.name, path: item.path })
     }
     if (item.routes && item.routes.length) {
       item.routes.forEach(el => {
         if (el.path === pathname) {
-          breadcrumbList.push({name: item.name, path: item.path})
-          breadcrumbList.push({name: el.name, path: el.path})
+          breadcrumbList.push({ name: item.name, path: item.path })
+          breadcrumbList.push({ name: el.name, path: el.path })
         }
       })
     }
@@ -79,10 +79,10 @@ const BasicLayout: React.FC = ({ children }) => {
   const onCollapse = () => {
     setCollapsed(!collapsed);
   }
-  const onOpenChange = (keys:string[]) => {
+  const onOpenChange = (keys: string[]) => {
     const latestOpenKey = keys.find((key: string) => openKeys.indexOf(key) === -1);
     if (latestOpenKey && rootSubmenuKeys.indexOf(latestOpenKey) === -1) {
-      setOpenKeys( keys );
+      setOpenKeys(keys);
     } else {
       setOpenKeys(latestOpenKey ? [latestOpenKey] : []);
     }
@@ -95,7 +95,7 @@ const BasicLayout: React.FC = ({ children }) => {
           <h1>智慧体测管理后台</h1>
         </div>
         <Menu
-          theme="dark"
+          // theme="dark"
           mode="inline"
           style={{ padding: "16px 0px" }}
           openKeys={openKeys}
@@ -106,13 +106,13 @@ const BasicLayout: React.FC = ({ children }) => {
       </Sider>
       <Layout>
         <GlobalHeader onCollapse={onCollapse} collapsed={collapsed} />
-        <Breadcrumb style={{ padding: "10px 0 0 15px" }}>
+        {/* <Breadcrumb style={{ padding: "10px 0 0 15px" }}>
           <Breadcrumb.Item href="/">
             <Icon type="home" />
           </Breadcrumb.Item>
           {renderBreadcrumb(routes)}
-        </Breadcrumb>
-        <Content style={{ padding: 15 }}>{children}</Content>
+        </Breadcrumb> */}
+        <Content style={{ padding: 0 }}>{children}</Content>
         <Footer style={{ textAlign: "center" }}>
           DaBai 2019 Created by Spoon
         </Footer>

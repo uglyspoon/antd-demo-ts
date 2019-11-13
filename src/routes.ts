@@ -1,37 +1,37 @@
 const routes = [
-  {
-    path: "/welcome",
-    name: "欢迎",
-    icon: "smile",
-    component: "/welcome"
-  },
+  // {
+  //   path: "/welcome",
+  //   name: "欢迎",
+  //   icon: "smile",
+  //   component: "/welcome"
+  // },
   {
     path: "/pmscore",
-    name: "体测管理",
-    icon: "pie-chart",
+    name: "体测成绩",
+    icon: "line-chart",
     routes: [
       {
         path: "/pmscore",
         redirect: "/pmscore/profile"
       },
       {
-        name: "成绩概览",
+        name: "成绩分析",
         path: "/pmscore/profile",
-        icon: "bar-chart",
+        // icon: "bar-chart",
         component: "/pmscore/profile/index"
       },
-      {
-        name: "体测记录",
-        path: "/pmscore/record",
-        icon: "line-chart",
-        component: "/pmscore/record/index"
-      }
+      // {
+      //   name: "体测记录",
+      //   path: "/pmscore/record",
+      //   // icon: "pie-chart",
+      //   component: "/pmscore/record/index"
+      // }
     ]
   },
   {
     path: "/plan",
     name: "体测计划",
-    icon: "info-circle",
+    icon: "container",
     component: "/plan",
     routes: [
       {
@@ -59,14 +59,40 @@ const routes = [
   {
     path: "/studentinfo",
     name: "学生信息",
-    icon: "info-circle",
+    icon: "user",
     component: "/studentinfo",
     routes: [
       {
         path: "/studentinfo/:id",
         name: "学生信息",
         component: "/studentinfo/detail",
-        hideInMenu: true
+        hideInMenu: true,
+        routes: [
+          {
+            path: "/studentinfo/:id/testreport",
+            name: "学生测试报告",
+            component: "/studentinfo/testReport",
+            hideInMenu: true,
+          },
+          {
+            path: "/studentinfo/:id/gradeanalysis",
+            name: "学生成绩分析",
+            component: "/studentinfo/gradeAnalysis",
+            hideInMenu: true,
+          },
+          {
+            path: "/studentinfo/:id/physicalreport",
+            name: "学生体质报告",
+            component: "/studentinfo/physicalReport",
+            hideInMenu: true,
+          },
+          {
+            path: "/studentinfo/:id/profile",
+            name: "学生成绩单",
+            component: "/studentinfo/profile",
+            hideInMenu: true,
+          },
+        ]
       }
     ]
   },
@@ -89,4 +115,4 @@ const routes = [
   }
 ];
 
-export {routes as default};
+export { routes as default };
