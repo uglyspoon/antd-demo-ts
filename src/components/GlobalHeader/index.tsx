@@ -48,7 +48,7 @@ const GlobalHeader = ({
 
 
   return (
-    <Layout.Header style={{ background: "#fff", padding: 0 }}>
+    <Layout.Header style={{ background: "#fff", padding: 0, boxShadow: '0 0 8px #d8d8d8' }}>
       <span className={styles.trigger} onClick={onCollapse}>
         <Icon type={collapsed ? "menu-unfold" : "menu-fold"} />
       </span>

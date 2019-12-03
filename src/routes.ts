@@ -15,10 +15,42 @@ const routes = [
         redirect: "/pmscore/profile"
       },
       {
-        name: "成绩分析",
+        name: "成绩概览",
         path: "/pmscore/profile",
         // icon: "bar-chart",
         component: "/pmscore/profile/index"
+      },
+      {
+        name: "体测记录",
+        path: "/pmscore/record",
+        // icon: "bar-chart",
+        component: "/pmscore/record/index",
+        routes: [
+          {
+            path: "/pmscore/record/detail",
+            name: "体测记录详情",
+            component: "/pmscore/record/detail",
+            hideInMenu: true
+          },
+        ]
+      },
+      {
+        name: "成绩列表",
+        path: "/pmscore/list",
+        // icon: "bar-chart",
+        component: "/pmscore/list/index"
+      },
+      {
+        name: "成绩排名",
+        path: "/pmscore/rank",
+        // icon: "bar-chart",
+        component: "/pmscore/rank/index"
+      },
+      {
+        name: "成绩查询",
+        path: "/pmscore/search",
+        // icon: "bar-chart",
+        component: "/pmscore/search/index"
       },
       // {
       //   name: "体测记录",

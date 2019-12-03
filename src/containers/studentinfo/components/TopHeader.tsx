@@ -43,14 +43,14 @@ const TopHeader = ({ studentInfo, id }: TopHeaderProps) => {
         </div>
         <div className={styles.rightBox}>
           <div className={styles.rightHeader}>
-            <div>
+            {/* <div>
               <img src={require('../../../assets/荣誉 金牌.png')} alt="" />
               <p>跳远冠军</p>
             </div>
             <div>
               <img src={require('../../../assets/荣誉 金牌.png')} alt="" />
               <p> 长跑冠军</p>
-            </div>
+            </div> */}
           </div>
           <Link
             to={`/studentinfo/${id}/physicalReport`}

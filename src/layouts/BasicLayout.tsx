@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from './BasicLayout.module.less';
 import GlobalHeader from 'components/GlobalHeader';
 
-import logo from 'assets/logo.svg';
+import logo from 'assets/logo@2x.png';
 import routes from 'routes';
 
 const { Content, Footer, Sider } = Layout;
@@ -112,7 +112,7 @@ const BasicLayout: React.FC = ({ children }) => {
           </Breadcrumb.Item>
           {renderBreadcrumb(routes)}
         </Breadcrumb> */}
-        <Content style={{ padding: 0 }}>{children}</Content>
+        <Content style={{ padding: 0, marginTop: 8, boxShadow: '0 0 8px #d8d8d8' }}>{children}</Content>
         <Footer style={{ textAlign: "center" }}>
           DaBai 2019 Created by Spoon
         </Footer>

@@ -20,6 +20,7 @@ export interface BarProps {
   transpose?: boolean;
   titleFontSize?: number;
   titlePosition?: string;
+  size?: number;
 }
 
 class Bar extends Component<
@@ -92,7 +93,8 @@ class Bar extends Component<
       padding,
       transpose,
       titleFontSize,
-      titlePosition
+      titlePosition,
+      size
     } = this.props;
 
     const { autoHideXLabels } = this.state;
@@ -136,7 +138,13 @@ class Bar extends Component<
             />
             <Axis name="y" min={0} />
             <Tooltip showTitle={false} crosshairs={false} />
-            <Geom type="interval" position="x*y" color={color} tooltip={tooltip} />
+            {
+              size
+                ?
+                <Geom type="interval" position="x*y" color={color} tooltip={tooltip} size={size} />
+                :
+                <Geom type="interval" position="x*y" color={color} tooltip={tooltip} />
+            }
           </Chart>
         </div>
       </div>

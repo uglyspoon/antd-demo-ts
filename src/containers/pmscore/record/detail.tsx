@@ -1,84 +1,75 @@
 import React, { useState, MouseEvent, useCallback, useEffect } from 'react';
 import styles from './style.module.less';
-import { ProfileData } from './data.d';
+import { ProfileData } from './data';
 import { Row, Col, Button, Modal, Alert, Icon, message, Card } from 'antd';
 import MyDropzone from './components/Dropzone';
 import request from 'utils/request';
 import configs from 'utils/config';
 import StandardTable, { StandardTableColumnProps } from 'components/StandardTable';
-import SimpleForm from './components/SimpleForm';
+import DetailForm from './components/DetailForm';
 import { isSuccess } from 'utils';
-import { NavLink } from 'react-router-dom';
+import queryString from 'query-string';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import moment from 'moment';
+
 
 const defaultParams = {
   pageNo: 1,
   pageSize: 10,
+  itemId: 9
 }
 
+interface IProps extends RouteComponentProps {
 
-const Record: React.FC = () => {
+}
+
+type queryProps = {
+  date111: string;
+}
+const Record: React.FC<IProps> = ({ history }) => {
   const [params, setParams] = useState<any>(defaultParams);
   const [list, setList] = useState([]);
   const [total, setTotal] = useState(0);
+  const query: any = queryString.parse(history.location.search)
 
 
   const columns: StandardTableColumnProps[] = [
     {
-      title: '日期',
-      dataIndex: 'dateStr',
+      title: '项目',
+      dataIndex: 'itemName',
     },
     {
-      title: <Row className={styles.customHeader}>
-        <Col span={4}>
-          项目
-        </Col>
-        <Col span={4}>
-          总人次
-        </Col>
-        <Col span={4}>
-          优秀
-        </Col>
-        <Col span={4}>
-          良好
-        </Col>
-        <Col span={4}>
-          合格
-        </Col>
-        <Col span={4}>
-          不合格
-        </Col>
-      </Row>,
-      render: (val, row) => <>
-        {
-          row.list.map((item: any) => <Row style={{ padding: '6px 0' }}>
-            <Col span={4}>
-              {item.itemName}
-            </Col>
-            <Col span={4}>
-              {item.total}
-            </Col>
-            <Col span={4}>
-              {item.level1}
-            </Col>
-            <Col span={4}>
-              {item.level2}
-            </Col>
-            <Col span={4}>
-              {item.level3}
-            </Col>
-            <Col span={4}>
-              {item.level4}
-            </Col>
-          </Row>)
-        }
-      </>
+      title: '姓名',
+      dataIndex: 'name',
     },
     {
-      title: '操作',
-      // dataIndex: 'dateStr',
-      render: (val, row) => {
-        return <><NavLink to={`/pmscore/record/detail?date=${row.dateStr}`} className={styles.customJump}>详情</NavLink></>
-      }
+      title: '成绩',
+      dataIndex: 'mark',
+      render: (val, row) => <>{row.mark}{row.unit}</>
+    },
+    {
+      title: '评分',
+      dataIndex: 'score',
+    },
+    {
+      title: '评定',
+      dataIndex: 'level',
+    },
+    {
+      title: '学号',
+      dataIndex: 'connerSn',
+    },
+    {
+      title: '院系',
+      dataIndex: 'college',
+    },
+    {
+      title: '年级',
+      dataIndex: 'grade',
+    },
+    {
+      title: '班级',
+      dataIndex: 'clazz',
     },
   ]
 
@@ -98,13 +89,12 @@ const Record: React.FC = () => {
     }));
   };
   const AsyncFetchList = async () => {
-
+    params.date = query.date
+    params.identy = 1
     const res = await request({
-      url: "/result/dateRecord",
+      url: "/result/sortList",
       data: params
     });
-    // const res = await axiosInstance.post("/conner/list", params);
-    // console.log(res)
     if (isSuccess(res)) {
       setList(res.data.rows);
       setTotal(res.data.total);
@@ -126,8 +116,11 @@ const Record: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <Card >
-        <SimpleForm handleSearch={handleSearch} resetForm={resetForm} style={{ marginBottom: 20 }} />
+      <Card>
+        <Row type="flex" justify="space-between">
+          <p style={{ color: '#002766', fontSize: 16, fontWeight: 600 }}>{moment(query.date, 'YYYY-MM-DD').format('MM月DD日')}体测详情</p>
+        </Row>
+        <DetailForm handleSearch={handleSearch} resetForm={resetForm} style={{ marginBottom: 20 }} />
         <StandardTable
           rowKey="id"
           columns={columns}
@@ -138,5 +131,5 @@ const Record: React.FC = () => {
     </div>
   )
 }
-export default Record;
+export default withRouter(Record);
 

@@ -1,35 +1,106 @@
-.cardContainer{
+.cardContainer {
   margin-bottom: 10px;
+
   .titleBoxC {
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
   }
-  .titleBox{
+
+  .titleBox {
     border-left: 5px solid #D8D8D8;
     padding-left: 10px;
     margin-bottom: 20px;
-    flex:1;
+    flex: 1;
+
     >span {
       font-size: 28px;
-      color:#000;
+      color: #000;
     }
   }
+
   .flexCenter {
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    h3{
+
+    h3 {
       width: 50%;
     }
-    p{
+
+    p {
       width: 50%;
       font-size: 15px;
     }
+
     span {
-      color:#4990E2;
+      color: #4990E2;
       margin-left: 5px;
       display: inline-block;
+    }
+  }
+}
+
+.historyContainer {
+  padding: 10px 0;
+
+  .scoreLabel {
+    font-size: 16px;
+    color: #1EB3D3;
+
+    >span {
+      font-size: 12px;
+    }
+  }
+
+  :global {
+    .ant-col {
+      text-align: center;
+
+      &:first-of-type {
+        color: #9F9F9F;
+        font-size: 16px;
+        text-align: right;
+      }
+    }
+  }
+}
+
+.qualContainer {
+  :global {
+    .ant-col {
+      text-align: center;
+
+      p {
+        text-align: center;
+      }
+    }
+  }
+
+  .ulContainer {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    >li {
+      padding: 10px 0;
+
+      >span {
+        color: #505759 !important;
+      }
+
+      &:first-of-type {
+        color: #FAD357;
+      }
+
+      &:nth-of-type(2) {
+        color: #5DCB77;
+      }
+
+      &:nth-of-type(3) {
+        color: #F1687E;
+      }
     }
   }
 }

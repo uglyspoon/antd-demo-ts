@@ -4,9 +4,7 @@ import { Row, Col, Divider } from 'antd';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import request from 'utils/request';
 import { isSuccess } from 'utils';
-import studentinfo from '.';
 const queryString = require('query-string');
-
 
 interface IProps extends RouteComponentProps {
 
